@@ -12,7 +12,7 @@
     </v-btn>
     <v-dialog :value="dialogStatus" persistent v-bind="this.$attrs">
       <v-card>
-        <v-form ref="form" @submit.prevent="onSubmit">
+        <v-form @submit.prevent="onSubmit">
           <v-card-title>
             Filters
             <v-spacer />
@@ -22,7 +22,6 @@
           </v-card-title>
           <v-card-text>
             <v-autocomplete
-              ref="sourcesInput"
               v-model="formData.sources"
               label="Sources"
               :items="fetchedSources"

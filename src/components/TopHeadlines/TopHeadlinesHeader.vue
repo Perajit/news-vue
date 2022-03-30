@@ -9,7 +9,6 @@
     <VisitHistoryDialogButton />
     <template v-slot:extension v-if="$vuetify.breakpoint.xsOnly && showHiddenKeywordInput">
       <v-text-field
-        ref="keywordInput"
         v-model="keyword"
         label="Search..."
         placeholder="Keywords or phrase to search for."
@@ -25,7 +24,6 @@
   <v-toolbar v-else flat>
     <v-toolbar-title class="mr-8">{{ title }}</v-toolbar-title>
     <v-text-field
-      ref="keywordInput"
       v-model="keyword"
       label="Search..."
       placeholder="Keywords or phrase to search for."

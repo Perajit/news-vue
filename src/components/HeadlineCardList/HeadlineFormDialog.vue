@@ -1,11 +1,10 @@
 <template>
   <v-dialog :value="dialogStatus" persistent v-bind="this.$attrs">
     <v-card>
-      <v-form ref="form" v-model="isFormValid" @submit.prevent="updateHeadline(formData)">
+      <v-form v-model="isFormValid" @submit.prevent="updateHeadline(formData)">
         <v-card-title>Edit Headline</v-card-title>
         <v-card-text>
           <v-textarea
-            ref="title"
             v-model="formData.title"
             label="Title"
             autofocus

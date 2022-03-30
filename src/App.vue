@@ -10,6 +10,8 @@
         />
       </div>
       <v-toolbar-title class="flex-1">News</v-toolbar-title>
+      <v-spacer />
+      <SettingsButton />
     </v-app-bar>
     <v-main>
       <router-view/>
@@ -18,7 +20,12 @@
 </template>
 
 <script>
+import SettingsButton from '@/components/SettingsButton.vue';
+
 export default {
   name: 'App',
+  components: {
+    SettingsButton,
+  },
 };
 </script>
