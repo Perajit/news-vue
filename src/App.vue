@@ -11,6 +11,7 @@
       </div>
       <v-toolbar-title class="flex-1">News</v-toolbar-title>
       <v-spacer />
+      <ThemeSwitchButton />
       <SettingsButton />
     </v-app-bar>
     <v-main>
@@ -21,11 +22,13 @@
 
 <script>
 import SettingsButton from '@/components/SettingsButton.vue';
+import ThemeSwitchButton from '@/components/ThemeSwitchButton.vue';
 
 export default {
   name: 'App',
   components: {
     SettingsButton,
+    ThemeSwitchButton,
   },
 };
 </script>

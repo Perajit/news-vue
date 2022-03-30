@@ -12,11 +12,15 @@
         md="4"
         lg="3"
       >
-        <HeadlineCard :headline="headline" :dark="false" :compact="$vuetify.breakpoint.xsOnly">
+        <HeadlineCard
+          :headline="headline"
+          :compact="$vuetify.breakpoint.xsOnly"
+          :dark="$vuetify.theme.dark"
+        >
           <template #actions>
             <HeadlineCardActions
               :headline="headline"
-              :dark="false"
+              :dark="$vuetify.theme.dark"
               x-small
               @editClicked="editHeadline(headline)"
               @viewDetailClicked="viewHeadlineDetail(headline)"

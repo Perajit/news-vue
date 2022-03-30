@@ -75,11 +75,11 @@ export default {
       type: Object,
       required: true,
     },
-    dark: {
+    compact: {
       type: Boolean,
       default: false,
     },
-    compact: {
+    dark: {
       type: Boolean,
       default: false,
     },

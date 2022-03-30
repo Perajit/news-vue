@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div class="pa-sm-3">
     <TopHeadlinesHeader
       @keywordChanged="keyword = $event"
       @sourcesChanged="sources = $event"
@@ -15,7 +15,7 @@
       :error="headlinesError"
       title="Error fetching top headlines"
     />
-  </v-container>
+  </div>
 </template>
 
 <script>

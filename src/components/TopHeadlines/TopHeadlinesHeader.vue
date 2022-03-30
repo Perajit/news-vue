@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar v-if="$vuetify.breakpoint.xsOnly" flat extension-height="72">
+  <v-toolbar v-if="$vuetify.breakpoint.xsOnly" flat extension-height="72" class="transparent">
     <v-toolbar-title>{{ title }}</v-toolbar-title>
     <v-spacer />
     <v-btn icon @click="showHiddenKeywordInput = !showHiddenKeywordInput">
@@ -21,7 +21,7 @@
       />
     </template>
   </v-toolbar>
-  <v-toolbar v-else flat>
+  <v-toolbar v-else flat class="transparent">
     <v-toolbar-title class="mr-8">{{ title }}</v-toolbar-title>
     <v-text-field
       v-model="keyword"
