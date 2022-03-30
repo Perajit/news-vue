@@ -19,12 +19,16 @@ export default {
     /**
      * Save settings for API request.
      *
-     * @param {Object} setting Settings.
-     * @param {string} arg.apiKey API key for API request.
-     * @param {string} arg.country Country code for API request.
+     * @param {Object} settings Settings.
+     * @param {string} settings.apiKey API key for API request.
+     * @param {string} settings.country Country code for API request.
      */
-    updateSettings({ commit }, settings) {
+    updateSettings({ commit, dispatch }, settings) {
       commit('UPDATE_SETTINGS', settings);
+
+      // Reload sources and top headlines
+      dispatch('sources/fetchSources', undefined, { root: true });
+      dispatch('topHeadlines/fetchTopHeadlines', undefined, { root: true });
     },
   },
 };

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import endpoints from '../constants/endpoints';
+import endpoints from '@/constants/endpoints';
 
 export default {
   state: () => ({
@@ -10,6 +10,9 @@ export default {
     },
   }),
   getters: {
+    isSourcesReady(state) {
+      return state.list.status === 'SUCCESS';
+    },
     isSourcesError(state) {
       return state.list.status === 'FAILURE';
     },

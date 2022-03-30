@@ -7,7 +7,7 @@
     </v-btn>
     <FiltersDialogButton />
     <VisitHistoryDialogButton />
-    <template v-slot:extension v-if="$vuetify.breakpoint.xsOnly && showHiddenKeywordInput">
+    <template v-slot:extension v-if="showHiddenKeywordInput">
       <v-text-field
         v-model="keyword"
         label="Search..."
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import debounce from '@/helpers/debounce';
 import FiltersDialogButton from './FiltersDialogButton.vue';
 import VisitHistoryDialogButton from './VisitHistoryDialogButton.vue';
@@ -63,11 +63,20 @@ export default {
   },
   computed: {
     ...mapGetters('sources', ['fetchedSources']),
+    ...mapState({
+      latestKeyword: (state) => state.topHeadlines.keyword,
+    }),
     debouncedKeywordChanged() {
       return debounce((keyword) => {
-        this.$emit('keywordChanged', keyword);
+        this.updateKeyword(keyword);
       }, debounceTime);
     },
+  },
+  mounted() {
+    this.keyword = this.latestKeyword;
+  },
+  methods: {
+    ...mapActions('topHeadlines', ['updateKeyword']),
   },
 };
 </script>

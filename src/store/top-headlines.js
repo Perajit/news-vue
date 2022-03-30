@@ -1,5 +1,5 @@
 import axios from 'axios';
-import endpoints from '../constants/endpoints';
+import endpoints from '@/constants/endpoints';
 
 export default {
   state: () => ({
@@ -8,6 +8,7 @@ export default {
       data: [],
       error: null,
     },
+    keyword: null,
     filters: {
       sources: [],
     },
@@ -15,6 +16,9 @@ export default {
   getters: {
     isHeadlinesLoading(state) {
       return state.list.status === 'LOADING';
+    },
+    isHeadlinesReady(state) {
+      return state.list.status === 'SUCCESS';
     },
     isHeadlinesError(state) {
       return state.list.status === 'FAILURE';
@@ -53,6 +57,9 @@ export default {
         error,
       };
     },
+    UPDATE_KEYWORD: (state, keyword) => {
+      state.keyword = keyword;
+    },
     UPDATE_FILTERS: (state, filters) => {
       state.filters = filters;
     },
@@ -61,22 +68,13 @@ export default {
     /**
      * Fetch top headlines from news API according to provided queries.
      * Refer to: https://newsapi.org/docs/endpoints/top-headlines.
-     *
-     * @param {Object} arg Parameters for fetching headlines.
-     * @param {string} arg.sources A comma-seperated string of identifiers for the news sources.
-     * @param {string} arg.keyword Keywords or a phrase to search for.
      */
-    async fetchTopHeadlines({ commit, rootState }, { sources, keyword }) {
+    async fetchTopHeadlines({ commit, state, rootState }) {
       const { apiKey, country } = rootState.settings;
-      const params = {
-        apiKey,
-        q: keyword,
-      };
+      const params = { apiKey, country };
 
-      if (sources?.length > 0) {
-        params.sources = sources.join(',');
-      } else {
-        params.country = country;
+      if (state.keyword) {
+        params.q = state.keyword;
       }
 
       commit('FETCH_TOP_HEADLINES_REQUEST');
@@ -89,12 +87,22 @@ export default {
       }
     },
     /**
+     * Apply query keyword to fetched top headlines
+     *
+     * @param {Object} keyword Keywords or a phrase to search for.
+     */
+    updateKeyword({ commit, dispatch }, keyword) {
+      commit('UPDATE_KEYWORD', keyword);
+
+      // Reload top headlines
+      dispatch('fetchTopHeadlines');
+    },
+    /**
      * Apply filters to fetched top headlines
      *
      * @param {Object} filters Filter to be applied
-     * @param {Array<String>} sources A comma-seperated string of identifiers for the news sources.
      */
-    udpateFilters({ commit }, filters) {
+    updateFilters({ commit }, filters) {
       commit('UPDATE_FILTERS', filters);
     },
   },

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import HeadlineDetail from '@/components/HeadlineDetail.vue';
 
 export default {
@@ -14,7 +14,7 @@ export default {
     HeadlineDetail,
   },
   computed: {
-    ...mapGetters('headline', ['selectedHeadline']),
+    ...mapState('headline', ['selectedHeadline']),
   },
   mounted() {
     if (!this.selectedHeadline) {

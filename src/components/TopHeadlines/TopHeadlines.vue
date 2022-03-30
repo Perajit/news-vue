@@ -1,20 +1,25 @@
 <template>
   <div class="pa-sm-3">
-    <TopHeadlinesHeader
-      @keywordChanged="keyword = $event"
-      @sourcesChanged="sources = $event"
+    <TopHeadlinesHeader />
+    <HeadlineCardList
+      v-if="!isSourcesError && !isHeadlinesError"
+      :isLoading="isHeadlinesLoading"
+      :headlines="filteredHeadlines"
     />
-    <HeadlineCardList :isLoading="isHeadlinesLoading" :headlines="filteredHeadlines" />
-    <ErrorAlert
-      v-if="isSourcesError"
-      :error="sourcesError"
-      title="Error fetching sources"
-    />
-    <ErrorAlert
-      v-if="isHeadlinesError"
-      :error="headlinesError"
-      title="Error fetching top headlines"
-    />
+    <v-container>
+      <ErrorAlert
+        v-if="isSourcesError"
+        testid="sourcesError"
+        :error="sourcesError"
+        title="Error fetching sources"
+      />
+      <ErrorAlert
+        v-if="isHeadlinesError"
+        testid="headlinesError"
+        :error="headlinesError"
+        title="Error fetching top headlines"
+      />
+    </v-container>
   </div>
 </template>
 
@@ -30,42 +35,28 @@ export default {
     HeadlineCardList,
     ErrorAlert,
   },
-  data() {
-    return {
-      keyword: null,
-      sources: null,
-    };
-  },
   computed: {
     ...mapState('settings', ['apiKey', 'country']),
-    ...mapGetters('sources', ['isSourcesError', 'sourcesError']),
+    ...mapGetters('sources', ['isSourcesReady', 'isSourcesError', 'sourcesError']),
     ...mapGetters('topHeadlines', [
       'isHeadlinesLoading',
+      'isHeadlinesReady',
       'isHeadlinesError',
       'headlinesError',
       'filteredHeadlines',
     ]),
   },
   mounted() {
-    // Reload sources / search result after changing settings
-    this.$watch((vm) => [vm.apiKey, vm.country], this.reloadAll, { immediate: true });
-
-    // Reload search result after changing keyword
-    this.$watch((vm) => [vm.keyword], this.reloadHeadlines);
+    if (!this.isSourcesReady) {
+      this.fetchSources();
+    }
+    if (!this.isHeadlinesReady) {
+      this.fetchTopHeadlines();
+    }
   },
   methods: {
     ...mapActions('sources', ['fetchSources']),
-    ...mapActions('topHeadlines', ['fetchTopHeadlines', 'applyFilters']),
-    reloadAll() {
-      this.fetchSources();
-      this.reloadHeadlines();
-    },
-    reloadHeadlines() {
-      this.fetchTopHeadlines({
-        keyword: this.keyword,
-        sources: this.sources,
-      });
-    },
+    ...mapActions('topHeadlines', ['fetchTopHeadlines']),
   },
 };
 </script>

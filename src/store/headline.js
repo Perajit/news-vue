@@ -3,14 +3,6 @@ export default {
     editedHeadline: null,
     selectedHeadline: null,
   }),
-  getters: {
-    editedHeadline(state) {
-      return state.editedHeadline;
-    },
-    selectedHeadline(state) {
-      return state.selectedHeadline;
-    },
-  },
   mutations: {
     EDIT_HEADLINE(state, headline) {
       state.editedHeadline = headline;
@@ -50,7 +42,11 @@ export default {
       commit('SELECT_HEADLINE', headline);
 
       // Also update history
-      dispatch('visitHistory/addVisit', { headline, dateTime: new Date() }, { root: true });
+      dispatch(
+        'visitHistory/addVisit',
+        { headline, dateTime: new Date().toISOString() },
+        { root: true },
+      );
     },
   },
 };
