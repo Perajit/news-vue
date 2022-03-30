@@ -8,6 +8,9 @@ export default {
       data: [],
       error: null,
     },
+    filters: {
+      sources: [],
+    },
   }),
   getters: {
     isHeadlinesLoading(state) {
@@ -19,8 +22,14 @@ export default {
     headlinesError(state) {
       return state.list.error;
     },
-    fetchedHeadlines(state) {
-      return state.list.data;
+    hasFilters(state) {
+      return state.filters.sources?.length > 0;
+    },
+    filteredHeadlines(state) {
+      const { list, filters } = state;
+      return filters.sources.length > 0
+        ? list.data.filter((item) => filters.sources.includes(item.source.id))
+        : list.data;
     },
   },
   mutations: {
@@ -43,6 +52,9 @@ export default {
         data: [],
         error,
       };
+    },
+    UPDATE_FILTERS: (state, filters) => {
+      state.filters = filters;
     },
   },
   actions: {
@@ -75,6 +87,15 @@ export default {
       } catch (error) {
         commit('FETCH_TOP_HEADLINES_FAILURE', error);
       }
+    },
+    /**
+     * Apply filters to fetched top headlines
+     *
+     * @param {Object} filters Filter to be applied
+     * @param {Array<String>} sources A comma-seperated string of identifiers for the news sources.
+     */
+    udpateFilters({ commit }, filters) {
+      commit('UPDATE_FILTERS', filters);
     },
   },
 };

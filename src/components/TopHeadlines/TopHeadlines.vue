@@ -4,7 +4,7 @@
       @keywordChanged="keyword = $event"
       @sourcesChanged="sources = $event"
     />
-    <HeadlineCardList :isLoading="isHeadlinesLoading" :headlines="fetchedHeadlines" />
+    <HeadlineCardList :isLoading="isHeadlinesLoading" :headlines="filteredHeadlines" />
     <ErrorAlert
       v-if="isSourcesError"
       :error="sourcesError"
@@ -43,7 +43,7 @@ export default {
       'isHeadlinesLoading',
       'isHeadlinesError',
       'headlinesError',
-      'fetchedHeadlines',
+      'filteredHeadlines',
     ]),
   },
   mounted() {

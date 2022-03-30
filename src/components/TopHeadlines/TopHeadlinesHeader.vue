@@ -5,6 +5,7 @@
     <v-btn icon @click="showHiddenKeywordInput = !showHiddenKeywordInput">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
+    <FiltersDialogButton />
     <template v-slot:extension v-if="$vuetify.breakpoint.xsOnly && showHiddenKeywordInput">
       <v-text-field
         ref="keywordInput"
@@ -35,16 +36,21 @@
       dense
       @input="debouncedKeywordChanged"
     />
+    <FiltersDialogButton />
   </v-toolbar>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import debounce from '@/helpers/debounce';
+import FiltersDialogButton from './FiltersDialogButton.vue';
 
 const debounceTime = 1000;
 
 export default {
+  components: {
+    FiltersDialogButton,
+  },
   data() {
     return {
       title: 'Top Headlines',
