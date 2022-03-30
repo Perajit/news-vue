@@ -1,11 +1,16 @@
 <template>
   <div class="home">
-    <h1>This is a home page</h1>
+    <TopHeadlines />
   </div>
 </template>
 
 <script>
+import TopHeadlines from '@/components/TopHeadlines/TopHeadlines.vue';
+
 export default {
   name: 'Home',
+  components: {
+    TopHeadlines,
+  },
 };
 </script>
