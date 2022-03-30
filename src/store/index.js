@@ -4,6 +4,7 @@ import settingsModule from './settings';
 import sourcesModule from './sources';
 import topHeadlinesModule from './top-headlines';
 import headlineModule from './headline';
+import visitHistoryModule from './visit-history';
 
 Vue.use(Vuex);
 
@@ -24,6 +25,10 @@ export default new Vuex.Store({
     headline: {
       namespaced: true,
       ...headlineModule,
+    },
+    visitHistory: {
+      namespaced: true,
+      ...visitHistoryModule,
     },
   },
 });

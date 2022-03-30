@@ -46,8 +46,11 @@ export default {
      *
      * @param {Object} headline Headline to be selected.
      */
-    selectHeadline({ commit }, headline) {
+    selectHeadline({ commit, dispatch }, headline) {
       commit('SELECT_HEADLINE', headline);
+
+      // Also update history
+      dispatch('visitHistory/addVisit', { headline, dateTime: new Date() }, { root: true });
     },
   },
 };

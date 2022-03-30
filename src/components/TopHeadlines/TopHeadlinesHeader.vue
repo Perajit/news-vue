@@ -6,6 +6,7 @@
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
     <FiltersDialogButton />
+    <VisitHistoryDialogButton />
     <template v-slot:extension v-if="$vuetify.breakpoint.xsOnly && showHiddenKeywordInput">
       <v-text-field
         ref="keywordInput"
@@ -37,6 +38,7 @@
       @input="debouncedKeywordChanged"
     />
     <FiltersDialogButton />
+    <VisitHistoryDialogButton />
   </v-toolbar>
 </template>
 
@@ -44,12 +46,14 @@
 import { mapGetters } from 'vuex';
 import debounce from '@/helpers/debounce';
 import FiltersDialogButton from './FiltersDialogButton.vue';
+import VisitHistoryDialogButton from './VisitHistoryDialogButton.vue';
 
 const debounceTime = 1000;
 
 export default {
   components: {
     FiltersDialogButton,
+    VisitHistoryDialogButton,
   },
   data() {
     return {
