@@ -18,10 +18,19 @@ module.exports = {
     {
       files: [
         '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)',
+        '**/tests/unit/**/*.{j,t}s?(x)',
       ],
       env: {
         jest: true,
+      },
+      rules: {
+        'import/extensions': ['error', {
+          js: 'never',
+          jsx: 'never',
+          ts: 'never',
+          tsx: 'never',
+          vue: 'never',
+        }],
       },
     },
   ],
