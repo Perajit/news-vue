@@ -1,9 +1,12 @@
 <template>
-  <v-container v-if="isLoading" class="headline-card-list d-flex justify-center py-10">
-    <v-progress-circular indeterminate size="50" color="blue" />
-  </v-container>
-  <v-container v-else fluid class="px-4">
-    <v-row>
+  <v-container fluid class="headline-card-list px-4">
+    <div v-if="isLoading" class="d-flex justify-center pa-10">
+      <v-progress-circular indeterminate size="50" color="blue" />
+    </div>
+    <div v-else-if="headlines.length === 0 && emptyMessage" class="text-center pa-10">
+      {{ emptyMessage }}
+    </div>
+    <v-row v-else>
       <v-col
         v-for="(headline, i) in headlines"
         :key="i"
@@ -53,6 +56,9 @@ export default {
     headlines: {
       type: Array,
       default: () => [],
+    },
+    emptyMessage: {
+      type: String,
     },
   },
   methods: {

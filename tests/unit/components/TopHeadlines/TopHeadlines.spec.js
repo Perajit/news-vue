@@ -47,10 +47,9 @@ describe('TopHeadlines component', () => {
     });
   }
 
-  it('shows show header and card list', () => {
+  it('renders header', () => {
     const wrapper = setup();
     expect(wrapper.findComponent(TopHeadlinesHeader).exists()).toBeTruthy();
-    expect(wrapper.findComponent(HeadlineCardList).exists()).toBeTruthy();
   });
 
   it('hides all error alerts on init', () => {
@@ -84,25 +83,53 @@ describe('TopHeadlines component', () => {
     expect(topHeadlinesActionsMock.fetchTopHeadlines).not.toHaveBeenCalled();
   });
 
-  describe('when sources fetching succeeds', () => {
-    let wrapper;
-
-    beforeEach(async () => {
-      wrapper = setup();
+  describe('card list', () => {
+    it('renders card list if loading', async () => {
+      const wrapper = setup();
       commitMutations(wrapper.vm.$store, [
-        { type: 'sources/FETCH_SOURCES_REQUEST' },
-        { type: 'sources/FETCH_SOURCES_SUCCESS', payload: sourcesMock },
+        { type: 'topHeadlines/FETCH_TOP_HEADLINES_REQUEST' },
       ]);
       await wrapper.vm.$nextTick();
+
+      const cardList = wrapper.findComponent(HeadlineCardList);
+      expect(cardList.exists()).toBe(true);
     });
 
-    it('hides sources error alert', async () => {
-      expect(wrapper.findComponent('[data-testid="sourcesError"]').exists()).toBeFalsy();
+    it('renders card list with filtered headlines if ready', async () => {
+      const wrapper = setup();
+      commitMutations(wrapper.vm.$store, [
+        { type: 'topHeadlines/FETCH_TOP_HEADLINES_REQUEST' },
+        { type: 'topHeadlines/FETCH_TOP_HEADLINES_SUCCESS', payload: topHeadlinesMock },
+      ]);
+      await wrapper.vm.$nextTick();
+
+      const cardList = wrapper.findComponent(HeadlineCardList);
+      expect(cardList.exists()).toBe(true);
+      expect(cardList.props('headlines')).toEqual(wrapper.vm.filteredHeadlines);
+    });
+
+    it('renders card list if error', async () => {
+      const error = {
+        response: {
+          status: 401,
+          data: { message: 'unauthorized' },
+        },
+      };
+      const wrapper = setup();
+
+      commitMutations(wrapper.vm.$store, [
+        { type: 'topHeadlines/FETCH_TOP_HEADLINES_REQUEST' },
+        { type: 'topHeadlines/FETCH_TOP_HEADLINES_FAILURE', payload: error },
+      ]);
+      await wrapper.vm.$nextTick();
+
+      const cardList = wrapper.findComponent(HeadlineCardList);
+      expect(cardList.exists()).toBe(false);
     });
   });
 
-  describe('when sources fetching fails', () => {
-    it('shows sources error alert', async () => {
+  describe('sources error alert', () => {
+    it('shows error alert if fetching has error', async () => {
       const error = {
         response: {
           status: 401,
@@ -119,31 +146,22 @@ describe('TopHeadlines component', () => {
 
       expect(wrapper.findComponent('[data-testid="sourcesError"]').exists()).toBeTruthy();
     });
-  });
 
-  describe('when headlines fetching succeeds', () => {
-    let wrapper;
+    it('hides error alert if fetching has no error', async () => {
+      const wrapper = setup();
 
-    beforeEach(async () => {
-      wrapper = setup();
       commitMutations(wrapper.vm.$store, [
-        { type: 'topHeadlines/FETCH_TOP_HEADLINES_REQUEST' },
-        { type: 'topHeadlines/FETCH_TOP_HEADLINES_SUCCESS', payload: topHeadlinesMock },
+        { type: 'sources/FETCH_SOURCES_REQUEST' },
+        { type: 'sources/FETCH_SOURCES_SUCCESS', payload: sourcesMock },
       ]);
       await wrapper.vm.$nextTick();
-    });
 
-    it('hides headlines error alert', async () => {
-      expect(wrapper.findComponent('[data-testid="headlinesError"]').exists()).toBeFalsy();
-    });
-
-    it('bind filtered headlines data to card list', () => {
-      expect(wrapper.findComponent(HeadlineCardList).props('headlines')).toEqual(wrapper.vm.filteredHeadlines);
+      expect(wrapper.findComponent('[data-testid="sourcesError"]').exists()).toBeFalsy();
     });
   });
 
-  describe('when headlines fetching fails', () => {
-    it('shows headlines error alert', async () => {
+  describe('headlines error alert', () => {
+    it('shows error alert if fetching has error', async () => {
       const error = {
         response: {
           status: 401,
@@ -159,6 +177,16 @@ describe('TopHeadlines component', () => {
       await wrapper.vm.$nextTick();
 
       expect(wrapper.findComponent('[data-testid="headlinesError"]').exists()).toBeTruthy();
+    });
+
+    it('hides error alert if fetching has no error', async () => {
+      const wrapper = setup();
+      commitMutations(wrapper.vm.$store, [
+        { type: 'topHeadlines/FETCH_TOP_HEADLINES_REQUEST' },
+        { type: 'topHeadlines/FETCH_TOP_HEADLINES_SUCCESS', payload: topHeadlinesMock },
+      ]);
+      await wrapper.vm.$nextTick();
+      expect(wrapper.findComponent('[data-testid="headlinesError"]').exists()).toBeFalsy();
     });
   });
 });

@@ -14,7 +14,7 @@
     <VisitHistoryDialogButton />
     <template v-slot:extension v-if="showHiddenKeywordInput">
       <v-text-field
-        v-model="inputKeyword"
+        v-model="keyword"
         name="keyword"
         label="Search..."
         placeholder="Keywords or phrase to search for."

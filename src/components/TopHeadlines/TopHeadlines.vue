@@ -2,9 +2,10 @@
   <div class="top-headlines pa-sm-3">
     <TopHeadlinesHeader />
     <HeadlineCardList
-      v-if="!isSourcesError && !isHeadlinesError"
+      v-if="isHeadlinesLoading || isHeadlinesReady"
       :isLoading="isHeadlinesLoading"
       :headlines="filteredHeadlines"
+      emptyMessage="No matched result."
     />
     <v-container>
       <ErrorAlert
