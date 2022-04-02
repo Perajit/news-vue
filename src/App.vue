@@ -12,7 +12,7 @@
       <v-toolbar-title class="flex-1">News</v-toolbar-title>
       <v-spacer />
       <ThemeSwitchButton />
-      <SettingsButton />
+      <SettingsDialogButton />
     </v-app-bar>
     <v-main>
       <router-view/>
@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import SettingsButton from '@/components/SettingsButton.vue';
+import SettingsDialogButton from '@/components/SettingsDialogButton.vue';
 import ThemeSwitchButton from '@/components/ThemeSwitchButton.vue';
 
 export default {
   name: 'App',
   components: {
-    SettingsButton,
+    SettingsDialogButton,
     ThemeSwitchButton,
   },
 };

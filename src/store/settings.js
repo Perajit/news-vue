@@ -1,5 +1,5 @@
-import defaultSettings from '../constants/default-settings';
-import persistedData from '../helpers/persisted-data';
+import defaultSettings from '@/constants/default-settings';
+import persistedData from '@/helpers/persisted-data';
 
 export default {
   state: () => (persistedData.settings || {

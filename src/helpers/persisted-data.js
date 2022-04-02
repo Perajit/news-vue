@@ -6,25 +6,32 @@ const storageKeys = {
   visitHistory: 'app__visitHistory',
 };
 
+function getFromLocalStorage(storageKey) {
+  const storedJson = window.localStorage.getItem(storageKey);
+  return storedJson ? JSON.parse(storedJson) : null;
+}
+
+function setToLocalStorage(storageKey, value) {
+  window.localStorage.setItem(storageKey, JSON.stringify(value));
+}
+
 export default {
   /**
    * Settings
    */
   get settings() {
-    const storedSettings = window.localStorage.getItem(storageKeys.settings);
-    return storedSettings ? JSON.parse(storedSettings) : null;
+    return getFromLocalStorage(storageKeys.settings);
   },
   set settings(value) {
-    window.localStorage.setItem(storageKeys.settings, JSON.stringify(value));
+    setToLocalStorage(storageKeys.settings, value);
   },
   /**
    * Visit history
    */
   get visitHistory() {
-    const storedHistory = window.localStorage.getItem(storageKeys.visitHistory);
-    return storedHistory ? JSON.parse(storedHistory) : null;
+    return getFromLocalStorage(storageKeys.visitHistory);
   },
   set visitHistory(value) {
-    window.localStorage.setItem(storageKeys.visitHistory, JSON.stringify(value));
+    setToLocalStorage(storageKeys.visitHistory, value);
   },
 };

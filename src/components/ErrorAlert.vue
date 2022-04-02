@@ -1,10 +1,12 @@
 <template functional>
   <v-alert
     v-if="props.error"
+    :data-testid="props.testid"
     type="error"
     border="left"
     prominent
     text
+    class="error-alert"
   >
     <div class="font-weight-bold" data-field="title">{{ props.title }}</div>
     <div v-if="props.error.response" data-field="detail">
@@ -26,6 +28,9 @@ export default {
     },
     error: {
       type: [Error, Object],
+    },
+    testid: {
+      type: String,
     },
   },
 };

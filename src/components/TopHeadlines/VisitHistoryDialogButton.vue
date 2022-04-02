@@ -1,9 +1,15 @@
 <template>
-  <div>
-    <v-btn icon @click="dialogStatus = true">
+  <div class="visit-history-dialog-button">
+    <v-btn data-action="showVisitHistoryDialog" icon @click="dialogStatus = true">
       <v-icon>mdi-clock-outline</v-icon>
     </v-btn>
-    <v-dialog :value="dialogStatus" scrollable persistent v-bind="this.$attrs">
+    <v-dialog
+      :value="dialogStatus"
+      scrollable
+      ersistent
+      v-bind="this.$attrs"
+      class="visit-history-dialog"
+    >
       <v-card>
         <v-card-title>
           View History
@@ -16,10 +22,10 @@
           <v-timeline dense align-top>
             <v-timeline-item v-for="(item, i) in visitHistory" :key="i" small color="blue">
               <a :href="item.headline.url" target="_blank" class="text-decoration-none">
-                <div class="text--secondary font-weight-bold">
+                <div data-field="title" class="text--secondary font-weight-bold">
                   {{ item.headline.title }}
                 </div>
-                <div class="text--secondary">
+                <div data-field="dateTime" class="text--secondary">
                   {{ item.dateTime | parseDate | formatDate('DD MMM YYYY HH:mm:ss') }}
                 </div>
               </a>

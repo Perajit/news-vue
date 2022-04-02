@@ -1,9 +1,21 @@
 <template functional>
-  <v-card-actions class="d-flex justify-end">
-    <v-btn fab elevation="3" v-bind="props" @click="listeners['editClicked']()">
+  <v-card-actions class="headline-card-actions d-flex justify-end">
+    <v-btn
+      data-action="edit"
+      fab
+      elevation="3"
+      v-bind="props"
+      @click="listeners['editClicked']()"
+    >
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
-    <v-btn fab elevation="3" v-bind="props" @click="listeners['viewDetailClicked']()">
+    <v-btn
+      data-action="viewDetail"
+      fab
+      elevation="3"
+      v-bind="props"
+      @click="listeners['viewDetailClicked']()"
+    >
       <v-icon>mdi-arrow-right</v-icon>
     </v-btn>
   </v-card-actions>

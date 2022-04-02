@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="isLoading" class="d-flex justify-center py-10">
+  <v-container v-if="isLoading" class="headline-card-list d-flex justify-center py-10">
     <v-progress-circular indeterminate size="50" color="blue" />
   </v-container>
   <v-container v-else fluid class="px-4">
@@ -53,18 +53,6 @@ export default {
     headlines: {
       type: Array,
       default: () => [],
-    },
-  },
-  computed: {
-    itemsPerRow() {
-      const itemsPerRowByBreakpoint = {
-        xs: 1,
-        sm: 2,
-        md: 3,
-        lg: 4,
-        xl: 4,
-      };
-      return itemsPerRowByBreakpoint[this.$vuetify.breakpoint.name];
     },
   },
   methods: {

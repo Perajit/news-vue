@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-btn icon large @click="dialogStatus = true">
+  <div class="filters-dialog-button">
+    <v-btn data-action="showFiltersDialog" icon large @click="dialogStatus = true">
       <v-badge
         :value="hasFilters"
         color="green"
@@ -10,7 +10,7 @@
         <v-icon>mdi-tune</v-icon>
       </v-badge>
     </v-btn>
-    <v-dialog :value="dialogStatus" persistent v-bind="this.$attrs">
+    <v-dialog :value="dialogStatus" persistent v-bind="this.$attrs" class="fiters-dialog">
       <v-card>
         <v-form @submit.prevent="onSubmit">
           <v-card-title>
@@ -20,9 +20,10 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-card-title>
-          <v-card-text>
+          <v-card-text data-field="sources">
             <v-autocomplete
               v-model="formData.sources"
+              name="sources"
               label="Sources"
               :items="fetchedSources"
               item-text="name"
@@ -42,9 +43,9 @@
             </v-autocomplete>
           </v-card-text>
           <v-card-actions class="mt-3">
-            <v-btn text @click="onReset">Reset</v-btn>
+            <v-btn data-action="reset" text @click="onReset">Reset</v-btn>
             <v-spacer />
-            <v-btn text @click="dialogStatus = false">Cancel</v-btn>
+            <v-btn data-action="cancel" text @click="dialogStatus = false">Cancel</v-btn>
             <v-btn type="submit" text color="primary">Save</v-btn>
           </v-card-actions>
         </v-form>
@@ -83,9 +84,9 @@ export default {
     };
   },
   methods: {
-    ...mapActions('topHeadlines', ['udpateFilters']),
+    ...mapActions('topHeadlines', ['updateFilters']),
     applyFilters() {
-      this.udpateFilters({
+      this.updateFilters({
         sources: this.formData.sources,
       });
     },

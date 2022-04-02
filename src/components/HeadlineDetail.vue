@@ -1,15 +1,19 @@
 <template functional>
-  <v-container v-if="props.headline" class="px-6 px-sm-8">
-    <h2 class="text-h6 my-3">{{ props.headline.title }}</h2>
+  <v-container v-if="props.headline" class="headline-detail px-6 px-sm-8">
+    <h2 data-field="title" class="text-h6 my-3">{{ props.headline.title }}</h2>
     <div class="text-subtitle-2 my-1">
       <div class="d-inline-block mr-3">
         <v-icon small class="mr-1">mdi-earth</v-icon>
-        <span class="font-weight-bold pink--text">{{ props.headline.source.name }}</span> •
-        <span class="font-weight-bold">{{ props.headline.author }}</span>
+        <span data-field="sourceName" class="font-weight-bold pink--text">
+          {{ props.headline.source.name }}
+        </span> •
+        <span data-field="author" class="font-weight-bold">
+          {{ props.headline.author }}
+        </span>
       </div>
       <div class="d-inline-block">
         <v-icon small>mdi-clock-outline</v-icon>
-        <span class="text--secondary">
+        <span data-field="publishedAt" class="text--secondary">
           {{ props.headline.publishedAt | formatDate('DD MMMM YYYY HH:mm:ss') }}
         </span>
       </div>
@@ -19,11 +23,14 @@
         <v-img :src="props.headline.urlToImage" max-height="40vh" contain class="mt-6"/>
       </v-col>
       <v-col>
-        <div class="text-body-1 mt-6 pl-sm-5">{{ props.headline.description }}</div>
+        <div data-field="description" class="text-body-1 mt-6 pl-sm-5">
+          {{ props.headline.description }}
+        </div>
       </v-col>
     </v-row>
-    <v-row justify="space-between">
+    <v-row class="justify-space-between mb-1">
       <v-btn
+        data-action="openUrl"
         :href="props.headline.url"
         target="_blank"
         color="primary"
@@ -33,6 +40,7 @@
         Read full article
       </v-btn>
       <v-btn
+        data-action="back"
         link
         to="/"
         text

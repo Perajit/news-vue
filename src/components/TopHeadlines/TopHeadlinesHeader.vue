@@ -1,15 +1,21 @@
 <template>
-  <v-toolbar v-if="$vuetify.breakpoint.xsOnly" flat extension-height="72" class="transparent">
+  <v-toolbar
+    v-if="$vuetify.breakpoint.xsOnly"
+    flat
+    extension-height="72"
+    class="top-headlines-header transparent"
+  >
     <v-toolbar-title>{{ title }}</v-toolbar-title>
     <v-spacer />
-    <v-btn icon @click="showHiddenKeywordInput = !showHiddenKeywordInput">
+    <v-btn name="searchButton" icon @click="showHiddenKeywordInput = !showHiddenKeywordInput">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
     <FiltersDialogButton />
     <VisitHistoryDialogButton />
     <template v-slot:extension v-if="showHiddenKeywordInput">
       <v-text-field
-        v-model="keyword"
+        v-model="inputKeyword"
+        name="keyword"
         label="Search..."
         placeholder="Keywords or phrase to search for."
         prepend-inner-icon="mdi-magnify"
@@ -21,10 +27,11 @@
       />
     </template>
   </v-toolbar>
-  <v-toolbar v-else flat class="transparent">
+  <v-toolbar v-else flat class="top-headlines-header transparent">
     <v-toolbar-title class="mr-8">{{ title }}</v-toolbar-title>
     <v-text-field
       v-model="keyword"
+      name="keyword"
       label="Search..."
       placeholder="Keywords or phrase to search for."
       prepend-inner-icon="mdi-magnify"

@@ -1,4 +1,4 @@
-import persistedData from '../helpers/persisted-data';
+import persistedData from '@/helpers/persisted-data';
 
 // Keep limited number of history
 const historyLimit = 20;

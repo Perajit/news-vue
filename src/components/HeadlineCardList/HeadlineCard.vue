@@ -1,8 +1,8 @@
-<template>
-  <v-card v-if="compact" :dark="dark">
+<template functional>
+  <v-card v-if="props.compact" :dark="dark" class="headline-card">
     <v-img
-      :src="headline.urlToImage || require('../../assets/logo.svg')"
-      :gradient="dark
+      :src="props.headline.urlToImage || require('../../assets/logo.svg')"
+      :gradient="props.dark
         ? 'to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.0)'
         : 'to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.0)'"
       height="220"
@@ -11,27 +11,27 @@
         <div class="pa-3">
           <slot name="actions" />
         </div>
-        <div class="pa-3" :class="dark ? 'alpha-black' : 'alpha-white'">
+        <div class="pa-3" :class="props.dark ? 'alpha-black' : 'alpha-white'">
           <v-card-text
             data-field="publishedAt"
             class="text-subtitle-2 font-weight-regular py-0"
           >
-            {{ headline.publishedAt | formatDate('DD MMM YYYY') }}
+            {{ props.headline.publishedAt | formatDate('DD MMM YYYY') }}
           </v-card-text>
           <v-card-text
             data-field="title"
             class="text-body-1 font-weight-bold pt-2 pb-0 line-clamp-3"
           >
-            {{ headline.title }}
+            {{ props.headline.title }}
           </v-card-text>
         </div>
       </div>
     </v-img>
   </v-card>
-  <v-card v-else :dark="dark" height="370">
+  <v-card v-else :dark="dark" height="370" class="headline-card">
     <v-img
-      :src="headline.urlToImage || require('../../assets/logo.svg')"
-      :gradient="dark
+      :src="props.headline.urlToImage || require('../../assets/logo.svg')"
+      :gradient="props.dark
         ? 'to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)'
         : 'to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0)'"
       height="160"
@@ -43,19 +43,19 @@
         data-field="publishedAt"
         class="text-subtitle-2 font-weight-regular py-0"
       >
-        {{ headline.publishedAt | formatDate('DD MMM YYYY') }}
+        {{ props.headline.publishedAt | formatDate('DD MMM YYYY') }}
       </v-card-text>
       <v-card-text
         data-field="title"
         class="text-body-1 font-weight-bold pt-2 pb-0 line-clamp-3"
       >
-        {{ headline.title }}
+        {{ props.headline.title }}
       </v-card-text>
       <v-card-text
         data-field="description"
         class="text-body-2 pt-2 pb-0 line-clamp-3"
       >
-        {{ headline.description }}
+        {{ props.headline.description }}
       </v-card-text>
     </div>
   </v-card>

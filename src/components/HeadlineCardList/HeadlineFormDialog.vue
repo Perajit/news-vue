@@ -1,11 +1,12 @@
 <template>
-  <v-dialog :value="dialogStatus" persistent v-bind="this.$attrs">
+  <v-dialog :value="dialogStatus" persistent v-bind="this.$attrs" class="headline-form-dialog">
     <v-card>
       <v-form v-model="isFormValid" @submit.prevent="updateHeadline(formData)">
         <v-card-title>Edit Headline</v-card-title>
         <v-card-text>
           <v-textarea
             v-model="formData.title"
+            name="title"
             label="Title"
             autofocus
             outlined
@@ -14,7 +15,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn text @click="cancelEditing">Cancel</v-btn>
+          <v-btn data-action="cancel" text @click="cancelEditing">Cancel</v-btn>
           <v-btn type="submit" text color="primary" :disabled="!isFormValid">Save</v-btn>
         </v-card-actions>
       </v-form>

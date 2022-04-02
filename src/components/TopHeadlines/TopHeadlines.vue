@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-sm-3">
+  <div class="top-headlines pa-sm-3">
     <TopHeadlinesHeader />
     <HeadlineCardList
       v-if="!isSourcesError && !isHeadlinesError"
