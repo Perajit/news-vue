@@ -1,3 +1,33 @@
+import { createLocalVue, mount } from '@vue/test-utils';
+import VueRouter from 'vue-router';
+import Vuetify from 'vuetify';
+
+export function mountWithDendencies(component, options) {
+  const app = document.createElement('div');
+  app.setAttribute('data-app', true);
+  document.body.appendChild(app);
+
+  const localVue = createLocalVue();
+  localVue.use(VueRouter);
+
+  return mount(component, {
+    localVue,
+    vuetify: new Vuetify(),
+    ...options,
+  });
+}
+
+export function triggerDropdownChange(autocomplete, input) {
+  autocomplete.vm.$emit('input', input);
+  autocomplete.vm.$emit('blur');
+}
+
+export async function commitMutations(store, mutations) {
+  mutations.forEach(({ type, payload }) => {
+    store.commit(type, payload);
+  });
+}
+
 export function verifyGetRequest(axiosMock, url, params) {
   const latestGetRequest = axiosMock.history.get.pop();
 
