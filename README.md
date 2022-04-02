@@ -32,7 +32,7 @@ $ yarn serve
 
 
 ## Build application
-To compiles and minifies for production:
+To compile and minifies for production:
 ```
 $ yarn build
 ```
@@ -41,3 +41,10 @@ $ yarn build
 ## Run unit tests
 ```
 $ yarn test:unit
+```
+
+
+## Lints and fixes files
+```
+$ yarn lint
+```
