@@ -18,11 +18,12 @@ $ yarn install
 
 ### Configure environment variables
 Set default request parameters for [News API](https://newsapi.org) as environment variables.
-Create `.env` or `.env.local` file in the root folder of the project and add configurations to the file.
+Create `.env.local` file in the root folder of the project and add configurations to the file.
 
 - __VUE_APP_API_KEY__ : Your API key. ([Register here](https://newsapi.org/register))
 - __country__ : The 2-letter ISO 3166-1 code of the country you want to get headlines for. 
 
+Note that you may see an example from `.env.local.example` file.
 
 ## Serve application
 To complie and run application with hot-reload for development:
