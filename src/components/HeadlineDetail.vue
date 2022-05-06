@@ -3,13 +3,16 @@
     <h2 data-field="title" class="text-h6 my-3">{{ props.headline.title }}</h2>
     <div class="text-subtitle-2 my-1">
       <div class="d-inline-block mr-3">
-        <v-icon small class="mr-1">mdi-earth</v-icon>
+        <v-icon small>mdi-earth</v-icon>
         <span data-field="sourceName" class="font-weight-bold pink--text">
           {{ props.headline.source.name }}
-        </span> •
-        <span data-field="author" class="font-weight-bold">
-          {{ props.headline.author }}
         </span>
+        <template v-if="props.headline.author">
+          •
+          <span data-field="author" class="font-weight-bold">
+            {{ props.headline.author }}
+          </span>
+        </template>
       </div>
       <div class="d-inline-block">
         <v-icon small>mdi-clock-outline</v-icon>

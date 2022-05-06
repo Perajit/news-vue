@@ -34,6 +34,7 @@
       name="keyword"
       label="Search..."
       placeholder="Keywords or phrase to search for."
+      class="mr-2"
       prepend-inner-icon="mdi-magnify"
       clearable
       single-line
